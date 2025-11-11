@@ -32,11 +32,7 @@ def create_book():
     data = request.get_json()
 
     name = (data.get('name') or "").strip()
-
-    # Weryfikacja chroniąca przed XSS: nazwa może zawierać tylko litery i cyfry
-    # Ten sam atak można przeprowadzić na nazwę autora książki
-    # Można zamiast ograniczać nazwę do liter i cyfr użyć sanitajzera co usunie znaki html'owe np. bleach.clean
-    # i również uchroni przed XSS
+    
     if not validate_book_name(name):
         return jsonify({'error': 'Invalid book name. Only letters and digits are allowed.'}), 400
 
